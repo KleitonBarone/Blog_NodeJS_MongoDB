@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="card-body">
+
+        <h2>Nova Postagem:</h2>
+        <hr>
+        {{#each erros}}
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{texto}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        {{else}}
+
+        {{/each}}
+        <form action="/admin/postagens/nova" method="POST">
+            <div class="form-group">
+                <label for="titulo">Titulo</label>
+                <input name="titulo" type="text" class="form-control" id="titulo" placeholder="Titulo do Post">
+            </div>
+
+            <div class="form-group">
+                <label for="slug">Slug</label>
+                <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug da Postagem"
+                    aria-describedby="slughelp">
+                <small id="slughelp" class="form-text text-muted">
+                    Slug é como vai ficar a categoria na url. ex: www.site.com/categoria/acao. Nesse caso o Slug é acao.
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <input name="descricao" type="text" class="form-control" id="descricao" placeholder="Descrição do Post">
+            </div>
+
+            <div class="form-group">
+                <label for="conteudo">Conteúdo</label>
+                <textarea name="conteudo" type="text" class="form-control" id="conteudo"
+                    placeholder="Conteúdo do Post"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="categoria">Categoria</label>
+                <select class=" custom-select" name="categoria">
+                    {{#each categorias}}
+                        <option value="{{_id}}">{{nome}}</option>
+                    {{else}}
+                        <option value="0">Nenhuma Categoria Registrada</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Criar</button>
+
+        </form>
+    </div>
+</div>
