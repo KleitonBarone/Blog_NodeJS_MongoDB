@@ -16,7 +16,7 @@
 
     {{/each}}
     <form action="/admin/categorias/edit" method="POST">
-      <input type="hidden" name="id" value="{{categoria.id}}">
+      <input type="hidden" name="id" value="{{categoria._id}}">
       <div class="form-group">
         <label for="nome">Nome</label>
         <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome da categoria" value="{{categoria.nome}}">

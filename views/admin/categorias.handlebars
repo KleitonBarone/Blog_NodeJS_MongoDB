@@ -27,9 +27,9 @@
     </h6>
     <div class="row">
         <div class="col">
-            <a href="/admin/categorias/edit/{{id}}" class=""><button class="btn btn-primary">Editar</button></a>
+            <a href="/admin/categorias/edit/{{_id}}" class=""><button class="btn btn-primary">Editar</button></a>
 
-            <button type="button" data-toggle="modal" data-target="#DeleteModal{{id}}"
+            <button type="button" data-toggle="modal" data-target="#DeleteModal{{_id}}"
             class="btn btn-primary">Deletar</button>
 
         </div>
@@ -41,12 +41,12 @@
 </div>
 
 <!--Modal do Delete-->
-<div class="modal fade" id="DeleteModal{{id}}" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel{{id}}"
+<div class="modal fade" id="DeleteModal{{_id}}" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel{{_id}}"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="DeleteModalLabel{{id}}">Atenção</h5>
+                <h5 class="modal-title" id="DeleteModalLabel{{_id}}">Atenção</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -58,7 +58,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não, volte.</button>
                 <form action="/admin/categorias/deletar" method="POST">
-                    <input type="hidden" name="id" value="{{id}}">
+                    <input type="hidden" name="id" value="{{_id}}">
                     <button type="submit" class="btn btn-danger">Sim, Delete.</button>
                 </form>
                 
