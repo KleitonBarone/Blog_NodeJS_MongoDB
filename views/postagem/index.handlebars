@@ -1,0 +1,23 @@
+<h1>{{postagem.titulo}}</h1>
+<hr>
+<h6 class="my-2 text-muted">
+        <div class="row">
+            <div class="col-8 text-left">
+            Criado: {{postagem.data}} 
+            </div>
+            <div class="col-4 text-right">
+            Slug: {{postagem.slug}}
+            </div>
+
+        </div>
+        <div class="row">
+            
+            <div class="col">
+            Categoria: {{postagem.categoria.nome}}
+            </div>
+
+        </div>
+</h6>
+<p class="my-5">
+    {{postagem.conteudo}}
+</p>

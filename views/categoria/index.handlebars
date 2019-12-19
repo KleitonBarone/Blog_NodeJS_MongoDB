@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col">
+      <h2>Lista de Categorias:</h2>
+    </div>
+  </div>
+<hr>
+{{#each categorias}}
+<!--Card de Cada Categoria-->
+<div class="card mt-2">
+  <div class="card-body">
+    <h5 class="card-title">{{nome}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+        <div class="row">
+            <div class="col-8 text-left">
+            Criado: {{date}} 
+            </div>
+            <div class="col-4 text-right">
+            Slug: {{slug}}
+            </div>
+
+        </div>
+        
+        
+    </h6>
+    <div class="row">
+        <div class="col text-right">
+            <a href="/categorias/{{slug}}" class=""><button class="btn btn-primary">Postagens com esssa Categoria</button></a>
+
+        </div>
+        
+
+    </div>
+    
+  </div>
+</div>
+
+{{else}}
+
+<div class="row my-5">
+    <div class="col text-center">
+
+    <h4>Nenhuma categoria registrada.</h4>
+
+    </div>
+</div>
+
+{{/each}}

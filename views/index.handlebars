@@ -1,0 +1,61 @@
+<div class="jumbotron">
+  <h1 class="display-4">Bem vindo ao Blog</h1>
+  <p class="lead">BLOG simples em NODEJS, EXPRESS e MONGODB</p>
+  <hr class="my-4">
+  <p>Veja os posts abaixo, ou entre em sua conta para postar uma nova</p>
+  <a class="btn btn-primary btn-lg" href="#" role="button">Crie uma conta</a>
+</div>
+
+<h2>Postagens: </h2>
+<hr>
+
+{{#each postagens}}
+<!--Card de Cada Postagem-->
+<div class="card my-2">
+  <div class="card-body">
+    <h5 class="card-title">{{titulo}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+        <div class="row">
+            <div class="col-8 text-left">
+            Criado: {{data}} 
+            </div>
+            <div class="col-4 text-right">
+            Slug: {{slug}}
+            </div>
+
+        </div>
+        <div class="row">
+            
+            <div class="col">
+            Categoria: {{categoria.nome}}
+            </div>
+
+        </div>
+    </h6>
+    <p class="card-text">
+      {{descricao}} 
+    </p>
+    
+    <div class="row">
+        <div class="col text-right">
+            <a href="/postagem/{{slug}}" class=""><button class="btn btn-primary">Leia mais</button></a>
+
+
+        </div>
+        
+
+    </div>
+    
+  </div>
+</div>
+{{else}}
+
+<div class="row my-5">
+    <div class="col text-center">
+
+    <h4>Nenhuma Postagem registrada.</h4>
+
+    </div>
+</div>
+
+{{/each}}

@@ -8,6 +8,10 @@ const path = require('path')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const flash = require('connect-flash')
+require('./models/Postagem')
+const Postagem = mongoose.model("Postagem")
+require('./models/Categoria')
+const Categoria = mongoose.model("Categoria")
 
 //Config
     //Session
@@ -56,12 +60,93 @@ const flash = require('connect-flash')
 
 //Rotas
     app.get('/', (req,res) =>{
-        res.send("Index")
+        Postagem.find().populate("categoria").sort({data: "desc"}).then((postagens) => {
+
+
+            res.render("index", {postagens: postagens})
+
+        }).catch((err) =>{
+            req.flash("error_msg", "Houve um erro interno")
+            res.redirect("/404")
+        })
+        
     })
 
     app.get('/posts', (req,res) =>{
         res.send("Posts")
     })
+
+    app.get('/postagem/:slug', (req,res) =>{
+        Postagem.findOne({slug: req.params.slug}).populate("categoria").then((postagem) =>{
+
+            console.log(postagem)
+            if(postagem){
+                res.render("postagem/index" , {postagem: postagem})
+            } else {
+                req.flash("error_msg", "Essa Postagem não existe")
+                res.redirect('/')
+            }
+            
+
+        }).catch((err) =>{
+            req.flash("error_msg", "Ocorreu um erro interno")
+            res.redirect('/404')
+        })
+
+    })
+
+    app.get('/categorias', (req,res) =>{
+
+        Categoria.find().sort({nome: "desc"}).then((categorias) => {
+
+
+            res.render("categoria/index", {categorias: categorias})
+
+        }).catch((err) =>{
+            req.flash("error_msg", "Houve um erro interno")
+            res.redirect("/404")
+        })
+        
+    })
+
+    app.get('/categorias/:slug', (req,res) =>{
+        Categoria.findOne({slug: req.params.slug}).then((categoria) => {
+
+            if(categoria) {
+
+                Postagem.find({categoria: categoria.id}).then((postagens) =>{
+
+                
+                    res.render("categoria/postagens" , {categoria: categoria, postagens: postagens})
+
+               
+                }).catch((err) =>{
+                req.flash("error_msg", "Ocorreu um erro interno")
+                res.redirect('/404')
+                })
+
+            } else {
+
+                req.flash("error_msg", "Essa categoria não existe")
+                res.redirect('/categorias')
+
+            }
+
+            
+            
+        }).catch((err) => {
+            req.flash("error_msg", "Houve um erro interno")
+            res.redirect("/404")
+        }) 
+        
+
+    })
+
+    app.get('/404', (req,res) =>{
+        res.send("Oops, ocorreu um erro (404)")
+    })
+
+    
 
     app.use('/admin', admin)
 
