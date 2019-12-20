@@ -4,6 +4,7 @@ const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const app = express()
 const admin = require('./routes/admin')
+const usuario = require('./routes/usuario')
 const path = require('path')
 const mongoose = require('mongoose')
 const session = require('express-session')
@@ -79,7 +80,7 @@ const Categoria = mongoose.model("Categoria")
     app.get('/postagem/:slug', (req,res) =>{
         Postagem.findOne({slug: req.params.slug}).populate("categoria").then((postagem) =>{
 
-            console.log(postagem)
+            
             if(postagem){
                 res.render("postagem/index" , {postagem: postagem})
             } else {
@@ -149,6 +150,8 @@ const Categoria = mongoose.model("Categoria")
     
 
     app.use('/admin', admin)
+
+    app.use('/usuarios', usuario)
 
 
 
