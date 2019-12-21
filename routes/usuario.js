@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 require('../models/Usuario')
 Usuario = mongoose.model("Usuario")
 const bcrypt = require('bcryptjs')
+const passport = require('passport')
 
 
 //valida se os campos estao vazios
@@ -95,6 +96,24 @@ router.post('/registro', (req, res) => {
 
 router.get('/login', (req, res) => {
     res.render("usuario/login")
+})
+
+router.post('/login', (req, res, next) => {
+
+    passport.authenticate("local", {
+        successRedirect: '/',
+        failureRedirect: '/usuarios/login',
+        failureFlash: true
+    })(req, res, next)
+
+})
+
+router.get('/logout', (req, res) => {
+
+    req.logout();
+    req.flash('success_msg', "Deslogado com sucesso!")
+    res.redirect("/")
+
 })
 
 
