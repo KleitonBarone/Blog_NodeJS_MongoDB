@@ -1,0 +1,32 @@
+{
+  "name": "projeto_blog",
+  "version": "1.0.0",
+  "description": "Fazendo um Blog utilizando NodeJS e o MongoDB",
+  "main": "app.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "express-session": "^1.17.0",
+    "mongoose": "^5.8.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KleitonBarone/Blog_NodeJS_MongoDB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KleitonBarone/Blog_NodeJS_MongoDB/issues"
+  },
+  "homepage": "https://github.com/KleitonBarone/Blog_NodeJS_MongoDB#readme"
+}
