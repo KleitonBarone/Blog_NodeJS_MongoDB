@@ -15,6 +15,7 @@ require('./models/Categoria')
 const Categoria = mongoose.model("Categoria")
 const passport = require('passport')
 require('./config/auth')(passport)
+const db = require('./config/db')
 
 //Config
     //Session
@@ -49,7 +50,7 @@ require('./config/auth')(passport)
 
     //Mongoose
     mongoose.Promise = global.Promise
-    mongoose.connect("mongodb://localhost/blogapp", {
+    mongoose.connect(db.mongoURI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
@@ -166,7 +167,7 @@ require('./config/auth')(passport)
 
 
 //Server
-const PORT = 8081
+const PORT = process.env.PORT || 8081
 app.listen(PORT, () => {
     console.log("Servidor Rodando...")
 })
