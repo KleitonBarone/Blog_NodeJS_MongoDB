@@ -3,6 +3,8 @@ const router = express.Router()
 const mongoose = require('mongoose')
 require('../models/Usuario')
 Usuario = mongoose.model("Usuario")
+require('../models/Comentario')
+const Comentario = mongoose.model('Comentario')
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 
@@ -116,7 +118,33 @@ router.get('/logout', (req, res) => {
 
 })
 
+router.post('/postagens/comentar',  (req, res) => {
+
+    let erros = valida(req.body)
+
+    if (erros.length > 0) {
+        erros.forEach(element => {
+            req.flash("error_msg", element.texto)
+        });
+
+        res.redirect("/postagens/" + req.body.postagem)
+    } else {
+        const novoComentario = {
+            conteudo: req.body.conteudo,
+            postagem: req.body.postagem,
+            usuario: req.body.usuario
+        }
 
 
+        new Comentario(novoComentario).save().then(() => {
+            req.flash("success_msg", "Comentado com sucesso!")
+            res.redirect("/postagens/" + req.body.postagem)
+        }).catch((err) => {
+            req.flash("error_msg", "Erro ao salvar comentario, tente novamente.")
+            res.redirect("/postagens/" + req.body.postagem)
+        })
+    }
+
+})
 
 module.exports = router
