@@ -22,3 +22,36 @@
     {{postagem.conteudo}}
 </p>
 <hr>
+{{#if user}}
+ <form action="/usuarios/postagens/comentar" method="POST">
+            <input type="hidden" name="post" value="{{postagem.id}}">
+
+            <input type="hidden" name="usuario" value="{{user.id}}">
+
+            <div class="form-group">
+                <label for="conteudo">Conteúdo</label>
+                <textarea name="conteudo" type="text" class="form-control" id="conteudo"
+                    placeholder="Conteúdo do Post"></textarea>
+            </div>
+
+           
+
+            <button type="submit" class="btn btn-primary">Criar</button>
+
+        </form>
+{{/if}}
+{{#each comentarios}}
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{usuario.nome}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{data}}</h6>
+    <p class="card-text">{{conteudo}}</p>
+  </div>
+</div>
+
+{{else}}
+
+<h4>Ainda não há comentários </h4>
+
+{{/each}}

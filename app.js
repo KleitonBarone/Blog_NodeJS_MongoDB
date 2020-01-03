@@ -16,6 +16,8 @@ const Categoria = mongoose.model("Categoria")
 const passport = require('passport')
 require('./config/auth')(passport)
 const db = require('./config/db')
+require('../models/Comentario')
+const Comentario = mongoose.model('Comentario')
 
 //Config
     //Session
@@ -80,20 +82,27 @@ const db = require('./config/db')
         
     })
 
-    app.get('/posts', (req,res) =>{
-        res.send("Posts")
-    })
+    
 
     app.get('/postagem/:slug', (req,res) =>{
         Postagem.findOne({slug: req.params.slug}).populate("categoria").then((postagem) =>{
 
+            Comentario.find({postagem: postagem.id}).populate().then((comentarios) => {
+
+                if(postagem){
+                    res.render("postagem/index" , {postagem: postagem, comentarios: comentarios})
+                } else {
+                    req.flash("error_msg", "Essa Postagem não existe")
+                    res.redirect('/')
+                }
+
+
+            }).catch((err) => {
+                req.flash("error_msg", "Ocorreu um erro interno")
+                res.redirect('/404')
+            })
             
-            if(postagem){
-                res.render("postagem/index" , {postagem: postagem})
-            } else {
-                req.flash("error_msg", "Essa Postagem não existe")
-                res.redirect('/')
-            }
+            
             
 
         }).catch((err) =>{
