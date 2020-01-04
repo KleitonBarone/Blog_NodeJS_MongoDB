@@ -16,7 +16,7 @@ const Categoria = mongoose.model("Categoria")
 const passport = require('passport')
 require('./config/auth')(passport)
 const db = require('./config/db')
-require('../models/Comentario')
+require('./models/Comentario')
 const Comentario = mongoose.model('Comentario')
 
 //Config
@@ -87,7 +87,7 @@ const Comentario = mongoose.model('Comentario')
     app.get('/postagem/:slug', (req,res) =>{
         Postagem.findOne({slug: req.params.slug}).populate("categoria").then((postagem) =>{
 
-            Comentario.find({postagem: postagem.id}).populate().then((comentarios) => {
+            Comentario.find({postagem: postagem.id}).populate("usuario").populate("postagem").sort({data: "desc"}).then((comentarios) => {
 
                 if(postagem){
                     res.render("postagem/index" , {postagem: postagem, comentarios: comentarios})

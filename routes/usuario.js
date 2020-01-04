@@ -5,6 +5,8 @@ require('../models/Usuario')
 Usuario = mongoose.model("Usuario")
 require('../models/Comentario')
 const Comentario = mongoose.model('Comentario')
+require('../models/Postagem')
+const Postagem = mongoose.model("Postagem")
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 
@@ -131,18 +133,25 @@ router.post('/postagens/comentar',  (req, res) => {
     } else {
         const novoComentario = {
             conteudo: req.body.conteudo,
-            postagem: req.body.postagem,
+            postagem: req.body.post,
             usuario: req.body.usuario
         }
 
+        Postagem.findById(req.body.post).then((postagem) => {
 
         new Comentario(novoComentario).save().then(() => {
             req.flash("success_msg", "Comentado com sucesso!")
-            res.redirect("/postagens/" + req.body.postagem)
+            res.redirect("/postagem/" + postagem.slug)
         }).catch((err) => {
             req.flash("error_msg", "Erro ao salvar comentario, tente novamente.")
-            res.redirect("/postagens/" + req.body.postagem)
+            res.redirect("/postagem/" + postagem.slug)
         })
+
+    }).catch((err) => {
+        req.flash("error_msg", "Erro ao achar a postagem")
+        res.redirect("/404")
+    })
+
     }
 
 })

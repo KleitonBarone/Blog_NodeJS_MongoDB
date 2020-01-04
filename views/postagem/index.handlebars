@@ -22,6 +22,7 @@
     {{postagem.conteudo}}
 </p>
 <hr>
+<h3>Comentários</h3>
 {{#if user}}
  <form action="/usuarios/postagens/comentar" method="POST">
             <input type="hidden" name="post" value="{{postagem.id}}">
@@ -29,20 +30,25 @@
             <input type="hidden" name="usuario" value="{{user.id}}">
 
             <div class="form-group">
-                <label for="conteudo">Conteúdo</label>
                 <textarea name="conteudo" type="text" class="form-control" id="conteudo"
-                    placeholder="Conteúdo do Post"></textarea>
+                    placeholder="Digite aqui..."></textarea>
             </div>
 
            
 
-            <button type="submit" class="btn btn-primary">Criar</button>
+            <button type="submit" class="btn btn-primary">Comentar</button>
 
         </form>
+<hr>
+{{else}}
+<p>Faça 
+<a  href="/usuarios/login">login</a>
+para comentar
+</p>
 {{/if}}
 {{#each comentarios}}
 
-<div class="card" style="width: 18rem;">
+<div class="card">
   <div class="card-body">
     <h5 class="card-title">{{usuario.nome}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{data}}</h6>
