@@ -53,6 +53,8 @@ para comentar
     <h5 class="card-title">{{usuario.nome}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{data}}</h6>
     <p class="card-text">{{conteudo}}</p>
+    
+    {{#ifEquals ../user.id usuario.id}} <a href="#" class="card-link">Delete</a> {{/ifEquals}}
   </div>
 </div>
 

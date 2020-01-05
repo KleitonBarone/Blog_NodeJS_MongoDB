@@ -45,7 +45,14 @@ const Comentario = mongoose.model('Comentario')
     app.use(bodyParser.json())
 
     //Handlebars
-    app.engine('handlebars', handlebars({defaultLayout: 'main'}))
+    app.engine('handlebars', handlebars({
+        defaultLayout: 'main',
+
+        helpers: {
+            ifEquals: function (arg1,arg2,options) { return (arg1 == arg2) ? options.fn(this) : options.inverse(this); }
+        }
+    }))
+    
     app.set('view engine', 'handlebars')
 
     
