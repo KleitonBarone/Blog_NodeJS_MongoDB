@@ -156,4 +156,29 @@ router.post('/postagens/comentar',  (req, res) => {
 
 })
 
+router.post('/postagens/comentar/deletar',  (req, res) => {
+
+    Comentario.deleteOne({ _id: req.body.id }).then(() => {
+
+        Postagem.findById({_id: req.body.postagem}).then((postagem) => {
+            req.flash("success_msg", "Comentario Deletado com Sucesso")
+            res.redirect("/postagem/" + postagem.slug)
+
+        }).catch((err) => {
+
+            req.flash("error_msg", "Erro ao achar a postagem")
+            res.redirect("/404")
+
+        })
+        
+
+
+
+    }).catch((err) => {
+        req.flash("error_msg", "Houve um erro ao deletar, tente novamente")
+        res.redirect('/')
+    })
+
+})
+
 module.exports = router
