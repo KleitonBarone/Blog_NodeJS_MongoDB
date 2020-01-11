@@ -26,4 +26,14 @@
         
         
 </h6>
+{{#if user}}
+
+    {{#ifEquals user.id usuario.id}}
+        <form action="/usuarios/editar" method="POST">
+                    <input type="hidden" name="id" value="{{user.id}}">
+                    <button type="submit" class="btn btn-danger">Editar</button>
+        </form>
+    {{/ifEquals}}
+
+{{/if}}
 <hr>

@@ -187,7 +187,7 @@ router.get('/:id', (req,res) =>{
         if(usuario) {
                 res.render("usuario/index" , {usuario: usuario})
         } else {
-            req.flash("error_msg", "Essa categoria não existe")
+            req.flash("error_msg", "Esse Usuario não existe")
             res.redirect('/')
         }
 
@@ -195,6 +195,29 @@ router.get('/:id', (req,res) =>{
         req.flash("error_msg", "Houve um erro interno")
         res.redirect("/404")
     }) 
+    
+
+})
+
+router.get('/editar', (req,res) =>{
+    Usuario.findOne({_id: req.body.id}).then((usuario) => {
+
+        if(usuario) {
+                res.render("usuario/update" , {usuario: usuario})
+        } else {
+            req.flash("error_msg", "Esse Usuario não existe")
+            res.redirect('/')
+        }
+
+    }).catch((err) => {
+        req.flash("error_msg", "Houve um erro interno")
+        res.redirect("/404")
+    }) 
+    
+
+})
+
+router.get('/update', (req,res) =>{
     
 
 })
