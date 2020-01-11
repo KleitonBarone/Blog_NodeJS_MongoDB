@@ -181,4 +181,22 @@ router.post('/postagens/comentar/deletar',  (req, res) => {
 
 })
 
+router.get('/:id', (req,res) =>{
+    Usuario.findOne({_id: req.params.id}).then((usuario) => {
+
+        if(usuario) {
+                res.render("usuario/index" , {usuario: usuario})
+        } else {
+            req.flash("error_msg", "Essa categoria não existe")
+            res.redirect('/')
+        }
+
+    }).catch((err) => {
+        req.flash("error_msg", "Houve um erro interno")
+        res.redirect("/404")
+    }) 
+    
+
+})
+
 module.exports = router
