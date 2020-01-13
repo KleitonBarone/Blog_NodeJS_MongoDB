@@ -199,7 +199,7 @@ router.get('/:id', (req,res) =>{
 
 })
 
-router.get('/editar', (req,res) =>{
+router.post('/editar', (req,res) =>{
     Usuario.findOne({_id: req.body.id}).then((usuario) => {
 
         if(usuario) {
@@ -217,9 +217,21 @@ router.get('/editar', (req,res) =>{
 
 })
 
-router.get('/update', (req,res) =>{
+router.post('/update', (req,res) =>{
     
+    Usuario.findByIdAndUpdate({ _id: req.body.id }, {
+ 
+        nome: req.body.nome,
+        email: req.body.email
 
+    }).then(() => {
+        req.flash("success_msg", "Usuario Modificado com Sucesso")
+        res.redirect('/usuarios/' + req.body.id)
+    }).catch((err) => {
+        req.flash("error_msg", "Não foi possivel modificar o usuario, tente novamente")
+        res.redirect('/usuarios/' + req.body.id)
+    })
+    
 })
 
 module.exports = router
