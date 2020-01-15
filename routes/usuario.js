@@ -129,14 +129,22 @@ router.post('/postagens/comentar',  (req, res) => {
             req.flash("error_msg", element.texto)
         });
 
-        res.redirect("/postagens/" + req.body.postagem)
+        Postagem.findById(req.body.post).then((postagem) => {
+
+        res.redirect("/postagem/" + postagem.slug)
+
+        }).catch((err) => {
+            req.flash("error_msg", "Erro ao achar a postagem")
+            res.redirect("/404")
+        })
+        
     } else {
         const novoComentario = {
             conteudo: req.body.conteudo,
             postagem: req.body.post,
             usuario: req.body.usuario
         }
-
+        
         Postagem.findById(req.body.post).then((postagem) => {
 
         new Comentario(novoComentario).save().then(() => {
@@ -218,6 +226,20 @@ router.post('/editar', (req,res) =>{
 })
 
 router.post('/update', (req,res) =>{
+
+    let erros = valida(req.body)
+
+    if (erros.length > 0) {
+        erros.forEach(element => {
+            req.flash("error_msg", element.texto)
+        });
+
+
+        res.redirect("/usuarios/" + req.body.id)
+
+
+
+    } else {
     
     Usuario.findByIdAndUpdate({ _id: req.body.id }, {
  
@@ -231,6 +253,8 @@ router.post('/update', (req,res) =>{
         req.flash("error_msg", "Não foi possivel modificar o usuario, tente novamente")
         res.redirect('/usuarios/' + req.body.id)
     })
+
+    }
     
 })
 

@@ -92,6 +92,7 @@ const Comentario = mongoose.model('Comentario')
     
 
     app.get('/postagem/:slug', (req,res) =>{
+        
         Postagem.findOne({slug: req.params.slug}).populate("categoria").then((postagem) =>{
 
             Comentario.find({postagem: postagem.id}).populate("usuario").populate("postagem").sort({data: "desc"}).then((comentarios) => {
