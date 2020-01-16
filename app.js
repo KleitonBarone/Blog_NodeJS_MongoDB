@@ -77,7 +77,7 @@ const Comentario = mongoose.model('Comentario')
 
 //Rotas
     app.get('/', (req,res) =>{
-        Postagem.find().populate("categoria").sort({data: "desc"}).then((postagens) => {
+        Postagem.find().populate("categoria").limit(10).skip(req.body.page).sort({data: "desc"}).then((postagens) => {
 
 
             res.render("index", {postagens: postagens})
