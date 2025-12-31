@@ -1,52 +1,94 @@
-# Blog_NodeJS_MongoDB
-Fazendo um Blog utilizando NodeJS e o MongoDB
+# Blog App (Node.js + MongoDB)
 
-Deploy com heroku: https://blogapp-nodejs-kb.herokuapp.com/
+A simple blog platform built with Node.js, Express, MongoDB (Mongoose), Handlebars, and Bootstrap. It supports user registration/login, categories, posts, and comments, with an admin area to manage content.
 
-Login do Admin caso queira adicionar posts e/ou categorias
-  Login: admin@admin.com
-  Senha: admin
+Admin access (for local/dev testing):
+- Email: admin@admin.com
+- Password: admin
 
-## De onde começar
+## Features
+- Blog posts: create, edit, list, and view posts.
+- Categories: organize posts by category.
+- Comments: users can comment on posts.
+- Authentication: user registration and login.
+- Admin area: manage categories and posts.
+- UI: responsive frontend using Bootstrap and Handlebars.
 
-Esse é um projeto JavaScript em NodeJs, que usa banco de dados MongoDB, em front-end foi utilizado o framework "Bootstrap"
+## Tech Stack
+- Backend: Node.js, Express
+- Database: MongoDB with Mongoose ODM
+- Templating: Handlebars
+- Frontend: Bootstrap
 
-### Prerequisitos
-
-NodeJS e Banco de Dados MongoDB Instalados
-
-### Instalando
-
-Abra o arquivo "config/db.js" 
-
-E na linha
+## Project Structure
 ```
- module.exports = {mongoURI: "mongodb://localhost/blogapp"}
+app.js
+config/
+  auth.js
+  db.js
+helpers/
+  isAdmin.js
+models/
+  Categoria.js
+  Comentario.js
+  Postagem.js
+  Usuario.js
+public/
+  css/, js/ (Bootstrap assets)
+routes/
+  admin.js
+  usuario.js
+views/
+  layouts/main.handlebars
+  partials/_navbar.handlebars, _footer.handlebars, _msg.handlebars
+  admin/, categoria/, postagem/, usuario/
 ```
 
-altere o objeto para o nome do banco de dados desejado (O padrao é blogapp)
+## Prerequisites
+- Node.js (>= 16 recommended)
+- MongoDB running locally or accessible remotely
 
+## Setup
+1. Clone the repository and install dependencies:
+   ```bash
+   git clone https://github.com/KleitonBarone/Blog_NodeJS_MongoDB.git
+   cd Blog_NodeJS_MongoDB
+   npm install
+   ```
+2. Configure the MongoDB connection:
+   - Open [config/db.js](config/db.js) and set your database name/URI. Example default:
+     ```js
+     module.exports = { mongoURI: "mongodb://localhost/blogapp" }
+     ```
+   - Alternatively, point `mongoURI` to a remote MongoDB (e.g., Atlas).
 
-## Rodando
-
-Feito os passos acima, vá até o diretorio do projeto e execute o comando 'npm install' para instalar todas as dependencias depois execute o comando 'npm start' para iniciar o projeto
-
+## Running Locally
+Start the server:
+```bash
+npm start
 ```
-./projeto> npm install
-./projeto> npm start
-```
-pronto, o projeto estara rodando em localhost, na porta 8081
+By default it runs on `http://localhost:8081`.
 
-caso queira alterar a porta do localhost, vá até o arquivo app.js
+Update the `PORT` constant to your preferred value.
 
-```
-const PORT = 8081
-app.listen(PORT, function(){
-    console.log("Localhost rodando na porta 8081")
-})
-```
-Altere a const PORT para a porta que desejar
+## Routes Overview
+- User-facing routes: see [routes/usuario.js](routes/usuario.js)
+- Admin routes: see [routes/admin.js](routes/admin.js)
 
-## Autor
+Admin routes are protected using the `isAdmin` helper in [helpers/isAdmin.js](helpers/isAdmin.js).
 
-* **Kleiton Barone** - [GitHub](https://github.com/KleitonBarone)
+## Models
+- Categories: [models/Categoria.js](models/Categoria.js)
+- Posts: [models/Postagem.js](models/Postagem.js)
+- Comments: [models/Comentario.js](models/Comentario.js)
+- Users: [models/Usuario.js](models/Usuario.js)
+
+## Development Tips
+- Seed admin credentials responsibly and change them for production.
+- Keep `mongoURI` secure when deploying (use environment variables or similar).
+
+## License
+This project is licensed under the terms of the license in [LICENSE](LICENSE).
+
+## Author
+**Kleiton Barone** — [GitHub](https://github.com/KleitonBarone)
